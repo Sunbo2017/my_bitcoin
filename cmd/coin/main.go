@@ -5,9 +5,6 @@ import (
 )
 
 func main() {
-	bc := core.NewBlockChain()
-	defer bc.DB.Close()
-
-	cli := core.CLI{BC: bc}
+	cli := core.CLI{}
 	cli.Run()
 }

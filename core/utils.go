@@ -2,20 +2,24 @@ package core
 
 import (
 	"bytes"
-	"crypto/sha256"
 	"encoding/binary"
+	"log"
 )
 
-func Int2Hex(v int64) []byte {
+// IntToHex converts an int64 to a byte array
+func IntToHex(num int64) []byte {
 	buff := new(bytes.Buffer)
-	err := binary.Write(buff, binary.BigEndian, v)
+	err := binary.Write(buff, binary.BigEndian, num)
 	if err != nil {
-		panic(err)
+		log.Panic(err)
 	}
+
 	return buff.Bytes()
 }
 
-func Data2Hash(data []byte) []byte {
-	hash := sha256.Sum256(data)
-	return hash[:]
+// ReverseBytes reverses a byte array
+func ReverseBytes(data []byte) {
+	for i, j := 0, len(data)-1; i < j; i, j = i+1, j-1 {
+		data[i], data[j] = data[j], data[i]
+	}
 }
