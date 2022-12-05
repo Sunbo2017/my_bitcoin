@@ -16,7 +16,7 @@ func (c *CLI) validateArgs() {
 }
 
 func (c *CLI) printChain(nodeID string) {
-	bc := NewBlockchain(nodeID)
+	bc := GetBlockchain(nodeID)
 	defer bc.db.Close()
 
 	bci := bc.Iterator()
@@ -48,11 +48,11 @@ func (c *CLI) send(from, to string, amount int, nodeID string, mineNow bool) {
 		log.Panic("ERROR: Recipient address is not valid")
 	}
 
-	bc := NewBlockchain(nodeID)
+	bc := GetBlockchain(nodeID)
 	UTXOSet := UTXOSet{bc}
 	defer bc.db.Close()
 
-	wallets, err := NewWallets(nodeID)
+	wallets, err := GetWallets(nodeID)
 	if err != nil {
 		log.Panic(err)
 	}
@@ -87,7 +87,7 @@ func (c *CLI) createBlockchain(address, nodeID string) {
 }
 
 func (c *CLI) createWallet(nodeID string) {
-	wallets, _ := NewWallets(nodeID)
+	wallets, _ := GetWallets(nodeID)
 	address := wallets.CreateWallet()
 	wallets.SaveToFile(nodeID)
 
@@ -98,7 +98,7 @@ func (c *CLI) getBalance(address, nodeID string) {
 	if !ValidateAddress(address) {
 		log.Panic("ERROR: Address is not valid")
 	}
-	bc := NewBlockchain(nodeID)
+	bc := GetBlockchain(nodeID)
 	UTXOSet := UTXOSet{bc}
 	defer bc.db.Close()
 
@@ -115,7 +115,7 @@ func (c *CLI) getBalance(address, nodeID string) {
 }
 
 func (c *CLI) listAddresses(nodeID string) {
-	wallets, err := NewWallets(nodeID)
+	wallets, err := GetWallets(nodeID)
 	if err != nil {
 		log.Panic(err)
 	}
@@ -127,7 +127,7 @@ func (c *CLI) listAddresses(nodeID string) {
 }
 
 func (c *CLI) reindexUTXO(nodeID string) {
-	bc := NewBlockchain(nodeID)
+	bc := GetBlockchain(nodeID)
 	UTXOSet := UTXOSet{bc}
 	UTXOSet.Reindex()
 

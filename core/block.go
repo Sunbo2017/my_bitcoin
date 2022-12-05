@@ -7,7 +7,26 @@ import (
 	"time"
 )
 
+type SBlock struct {
+	Magic         int
+	Size          int64
+	Header   	  BlockHeader
+	TxCount       int64
+	Transactions  []*Transaction
+}
+
+type BlockHeader struct {
+	Version   string
+	Timestamp     int64
+	PrevBlockHash []byte
+	MerkleHash    []byte
+	Hash          []byte
+	Nonce         int
+	Height        int
+}
+
 // Block represents a block in the blockchain
+// 该结构并非严格的比特币区块结构,标准结构参考SBlock
 type Block struct {
 	Timestamp     int64
 	Transactions  []*Transaction

@@ -17,8 +17,8 @@ type Wallets struct {
 	Wallets map[string]*Wallet
 }
 
-// NewWallets creates Wallets and fills it from a file if it exists
-func NewWallets(nodeID string) (*Wallets, error) {
+// GetWallets creates Wallets and fills it from a file if it exists
+func GetWallets(nodeID string) (*Wallets, error) {
 	wallets := Wallets{}
 	wallets.Wallets = make(map[string]*Wallet)
 

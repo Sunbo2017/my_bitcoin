@@ -96,8 +96,8 @@ func CreateBlockchain(address, nodeID string) *Blockchain {
 	return &bc
 }
 
-// NewBlockchain creates a new Blockchain with genesis Block
-func NewBlockchain(nodeID string) *Blockchain {
+// GetBlockchain creates a new Blockchain with genesis Block
+func GetBlockchain(nodeID string) *Blockchain {
 	dbFile := fmt.Sprintf(dbFile, nodeID)
 	if dbExists(dbFile) == false {
 		fmt.Println("No existing blockchain found. Create one first.")
