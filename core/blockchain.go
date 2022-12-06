@@ -18,6 +18,7 @@ const (
 )
 
 // Blockchain implements interactions with a DB
+// tip是当前最后一个区块的hash
 type Blockchain struct {
 	tip []byte
 	db  *bolt.DB

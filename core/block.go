@@ -8,21 +8,21 @@ import (
 )
 
 type SBlock struct {
-	Magic         int
-	Size          int64
-	Header   	  BlockHeader
-	TxCount       int64
-	Transactions  []*Transaction
+	Magic         int    //魔数
+	Size          int64  //区块大小
+	Header   	  *BlockHeader  //区块头
+	TxCount       int64  //交易总数
+	Transactions  []*Transaction  //交易数据
 }
 
 type BlockHeader struct {
-	Version   string
+	Version   string     //版本号
 	Timestamp     int64
-	PrevBlockHash []byte
-	MerkleHash    []byte
-	Hash          []byte
-	Nonce         int
-	Height        int
+	PrevBlockHash []byte  //前一个区块的hash
+	MerkleHash    []byte  //该区块所有交易的merkle根hash
+	Hash          []byte  //经过pow计算后的该区块hash
+	Nonce         int     //pow确定的随机数
+	Height        int     //区块高度
 }
 
 // Block represents a block in the blockchain
@@ -53,7 +53,7 @@ func NewGenesisBlock(coinbase *Transaction) *Block {
 	return NewBlock([]*Transaction{coinbase}, []byte{}, 0)
 }
 
-// HashTransactions returns a hash of the transactions in the block
+// HashTransactions returns a merkle hash of the transactions in the block
 func (b *Block) HashTransactions() []byte {
 	var transactions [][]byte
 
